@@ -265,6 +265,7 @@ export const mergeUpdates = (obj, updaterFuncsArr, returnUpdatesAndFullObject = 
   return returnUpdatesAndFullObject ? {mergedUpdates, updatedObj} : mergedUpdates;
 }
 
+
 //make a string of conditional css classes
 export const classes = (...args) => {
   let result = [];
