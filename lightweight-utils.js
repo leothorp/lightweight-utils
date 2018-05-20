@@ -295,30 +295,7 @@ export const getNextKey = (() => {
 })();
 
 
-//makes a shallow copy
-//TODO: vvv revisit
-// export const groupsOfN = (arr, n) => {
 
-//   if (n > arr.length) return [arr];
-
-//   const numGroups = Math.floor(arr.length / n);
-//   const remainder = arr.length % n;
-//   // const result = makeArr(numGroups, (i) => {
-//   //   const idx = i * n;
-//   //   return arr.slice(idx, idx + n);
-//   // });
-
-//   const result = [];
-//   for (var i = 0; i < arr.length; i *= n) {
-//     result.push(arr.slice(i, i + n));
-//   }
-
-//   if (remainder > 0) {
-//     result.push(arr.slice(-1 * remainder));
-//   }
-
-//   return result;
-// };
 
 export const eventVal = (fn) => (e) => fn(e.target.value);
 
