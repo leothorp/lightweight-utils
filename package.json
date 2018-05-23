@@ -1,5 +1,13 @@
 {
   "name": "lightweight-utils",
-  "version": "0.0.3",
-  "license": "MIT"
+  "description": "",
+  "version": "0.0.4",
+  "main": "index.js",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/leothorp/lightweight-utils.git"
+  },
+  "keywords": [],
+  "author": ""
 }
