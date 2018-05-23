@@ -204,7 +204,6 @@ exportObj.valToObj = val => ({[val]: val});
 //getNewVal(oldVal, property, innerObj)
 exportObj.updateObj = (startObj, path, getNewVal) => {
 
-  console.log('prev', startObj, path, getNewVal)
   //can pass a function getNewVal(oldVal, property, innerObj) that returns the new value, 
   //or just pass the desired new value
   if (typeof getNewVal !== 'function') {
@@ -219,7 +218,7 @@ exportObj.updateObj = (startObj, path, getNewVal) => {
       ? getNewVal(obj[currPart], currPart, obj) 
       : recurse(obj[currPart], rest);
     
-    return {...obj, [currPart]: valForCurrPart};
+    return assignToNew(obj, {[currPart]: valForCurrPart});
   });
   
   return recurse(startObj, path.split('.'));
