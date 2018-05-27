@@ -1,30 +1,29 @@
 
-const exportObj = {};
 //strings
-exportObj.capFirstLetter = (str) => {
+export const capFirstLetter = (str) => {
   return str ? (str[0].toUpperCase() + str.slice(1)) : str;
 }
 
-exportObj.capAllWords = str => {
+export const capAllWords = str => {
   return str.split(' ').map(capFirstLetter).join(' ');
 }
 
 //numbers
 
 //takes lower bound (inclusive) and upper bound (exclusive)
-exportObj.getRandomInt = (...args) => {
+export const getRandomInt = (...args) => {
   const [lower, upper] = args.length === 1 ? [0, args[0]] : args;
   const rand = Math.random();
   return Math.floor(rand * (upper - lower)) + lower;
 }
 
-exportObj.getRandomBool = () => {
+export const getRandomBool = () => {
   return getRandomInt(2) === 1;
 }
 
 
 //functional
-exportObj.identity = x => x;
+export const identity = x => x;
 
 export function memoize(fn, serializer = identity) {
   const cache = {};
@@ -43,23 +42,23 @@ const arrFunc = (funcName) => (arr, ...paramsToPass) => {
 }
 
 const [map, forEach, filter, reduce, every] = ['map', 'forEach', 'filter', 'reduce', 'every'].map(arrFunc);
-exportObj.map = map;
-exportObj.forEach = forEach;
-exportObj.filter = filter;
-exportObj.reduce = reduce;
-exportObj.every = every;
+export const map = map;
+export const forEach = forEach;
+export const filter = filter;
+export const reduce = reduce;
+export const every = every;
 
-exportObj.not = (fn) => (...args) => !fn(...args);
+export const not = (fn) => (...args) => !fn(...args);
 
-exportObj.thunk = (fn) => (...args) => () => fn(...args);
+export const thunk = (fn) => (...args) => () => fn(...args);
 
-exportObj.wrap = (val) => () => val;
+export const wrap = (val) => () => val;
 
-exportObj.noArg = (fn) => () => fn();
+export const noArg = (fn) => () => fn();
 
-exportObj.noop = () => {};
+export const noop = () => {};
 
-exportObj.once = (fn) => {
+export const once = (fn) => {
   let called, result;
   return (...args) => {
     if (!called) {
@@ -72,17 +71,17 @@ exportObj.once = (fn) => {
 };
 
 
-exportObj.caller = (...funcs) => {
+export const caller = (...funcs) => {
   return () => funcs.forEach(fn => fn());
 }
 
-exportObj.mapMany = (arrToMap, ...funcs) => {
+export const mapMany = (arrToMap, ...funcs) => {
   return funcs.reduce((acc, curr) => {
     return acc.map(curr);
   }, arrToMap);
 }
 
-exportObj.compose = (...funcs) => {
+export const compose = (...funcs) => {
   if (funcs.length === 0) {
     return identity;
   }
@@ -94,17 +93,17 @@ exportObj.compose = (...funcs) => {
   return funcs.reduce((a, b) => (...args) => a(b(...args)));
 }
 
-exportObj.pipeline = (...funcs) => {
+export const pipeline = (...funcs) => {
   return compose(...funcs.reverse());
 };
 
-exportObj.isTruthy = x => !!x;
-exportObj.orNull = x => x || null;
-exportObj.last = arr => arr[arr.length - 1];
+export const isTruthy = x => !!x;
+export const orNull = x => x || null;
+export const last = arr => arr[arr.length - 1];
 
 //pass an array of condition/result pairs and a final default
 //ifElse([[false, '3'], [true, 5]], 'default') --> 5
-exportObj.ifElse = (pairs, final) => {
+export const ifElse = (pairs, final) => {
 
   for (var i = 0; i < pairs.length; i++) {
     const [condition, result] = pairs[i];
@@ -121,54 +120,54 @@ exportObj.ifElse = (pairs, final) => {
 
 //objects
 //use when first object cannot be mutated
-exportObj.assignToNew = (...params) => {
+export const assignToNew = (...params) => {
   const objParams = params.filter(isObject);
   return Object.assign({}, ...objParams);
 }
 
 //use when first object can be mutated
-exportObj.assignToOld = (...params) => {
+export const assignToOld = (...params) => {
   const objParams = params.filter(isObject);
   return Object.assign(...objParams);
 }
 
 //shallow copy
-exportObj.copySet = originalSet => new Set(originalSet);
+export const copySet = originalSet => new Set(originalSet);
 
 
-exportObj.keys = Object.keys;
-exportObj.values = (obj) => keys(obj).map(k => obj[k]);
+export const keys = Object.keys;
+export const values = (obj) => keys(obj).map(k => obj[k]);
 
-exportObj.entries = (obj) => keys(obj).map(k => [k, obj[k]]);
-exportObj.entriesToObj = (arr, fn = null) => (fn ? arr.map(fn) : arr).reduce((acc, [k, v]) => {
+export const entries = (obj) => keys(obj).map(k => [k, obj[k]]);
+export const entriesToObj = (arr, fn = null) => (fn ? arr.map(fn) : arr).reduce((acc, [k, v]) => {
   return assignToOld(acc, {[k]: v});
 }, {});
 
 
-exportObj.mapObj = (obj, fn) => entriesToObj(entries(obj).map(([k, v]) => fn([k, v], obj)));
-exportObj.filterObj = (obj, fn) => entriesToObj(entries(obj).filter(fn));
-exportObj.reduceObj = (obj, fn, starting) => entries(obj).reduce(fn, starting);
+export const mapObj = (obj, fn) => entriesToObj(entries(obj).map(([k, v]) => fn([k, v], obj)));
+export const filterObj = (obj, fn) => entriesToObj(entries(obj).filter(fn));
+export const reduceObj = (obj, fn, starting) => entries(obj).reduce(fn, starting);
 
-exportObj.iterateObj = (obj, fn) => entries(obj).forEach((kvPair) => fn(kvPair, obj));
+export const iterateObj = (obj, fn) => entries(obj).forEach((kvPair) => fn(kvPair, obj));
 
 
-exportObj.isObject = (x) => x !== null && typeof x === 'object';
+export const isObject = (x) => x !== null && typeof x === 'object';
 
-exportObj.pick = (obj, keysArr) => {
+export const pick = (obj, keysArr) => {
   const keysInObj = new Set(keys(obj));
   return keysArr.reduce((acc, curr) => keysInObj.has(curr) ? Object.assign(acc, {[curr]: obj[curr]}) : acc, {});
 }
 
-exportObj.omit = (obj, keysArr) => {
+export const omit = (obj, keysArr) => {
   const keysToOmit = new Set(keysArr);
   return filterObj(obj, ([k, v]) => !keysToOmit.has(k));
 }
 
 
 //arrays
-exportObj.randomArrayEl = (arr) => arr[getRandomInt(arr.length)];
+export const randomArrayEl = (arr) => arr[getRandomInt(arr.length)];
 
-exportObj.makeArr = (count, fn) => {
+export const makeArr = (count, fn) => {
   var result = [];
   for (var i = 0; i < count; i++) {
     result.push(fn(i));
@@ -176,7 +175,7 @@ exportObj.makeArr = (count, fn) => {
   return result;
 }
 
-exportObj.keyBy = (arr, keySelector, valSelector = identity, collisions = false) => {
+export const keyBy = (arr, keySelector, valSelector = identity, collisions = false) => {
   const resultObj = arr.reduce((acc, curr, i, arr) => {
     const key = keySelector(curr, i, arr);
     if (collisions) {
@@ -195,14 +194,14 @@ exportObj.keyBy = (arr, keySelector, valSelector = identity, collisions = false)
   return resultObj;
 }
 
-exportObj.isUndefined = val => val === undefined;
+export const isUndefined = val => val === undefined;
 
-exportObj.isEmptyObj = obj => Object.keys(obj).length === 0; 
+export const isEmptyObj = obj => Object.keys(obj).length === 0; 
 
-exportObj.valToObj = val => ({[val]: val});
+export const valToObj = val => ({[val]: val});
 
 //getNewVal(oldVal, property, innerObj)
-exportObj.updateObj = (startObj, path, getNewVal) => {
+export const updateObj = (startObj, path, getNewVal) => {
 
   //can pass a function getNewVal(oldVal, property, innerObj) that returns the new value, 
   //or just pass the desired new value
@@ -224,9 +223,9 @@ exportObj.updateObj = (startObj, path, getNewVal) => {
   return recurse(startObj, path.split('.'));
 };
 
-exportObj.stringsToObj = (...strings) => keyBy(strings, identity);
+export const stringsToObj = (...strings) => keyBy(strings, identity);
 
-exportObj.deepRemoveKey = (startObj, pathToKey) => {
+export const deepRemoveKey = (startObj, pathToKey) => {
   const pathParts = pathToKey.split('.');
   if (pathParts.length === 1) {
     return omit(startObj, [pathToKey]);
@@ -245,13 +244,13 @@ exportObj.deepRemoveKey = (startObj, pathToKey) => {
 
 
 //components
-exportObj.bindTo = (context, ...methods) => { 
+export const bindTo = (context, ...methods) => { 
   methods.forEach(method => context[method.name] = method.bind(context));
 };
 
 //apply a series of updates sequentially to an object (used to batch state updates taking place outside an event handler: https://stackoverflow.com/a/48610973)
 
-exportObj.mergeUpdates = (obj, updaterFuncsArr, returnUpdatesAndFullObject = false) => {
+export const mergeUpdates = (obj, updaterFuncsArr, returnUpdatesAndFullObject = false) => {
   if (updaterFuncsArr.length === 0) return {};
 
   const updates = [];
@@ -271,7 +270,7 @@ exportObj.mergeUpdates = (obj, updaterFuncsArr, returnUpdatesAndFullObject = fal
 }
 
 //make a string of conditional css classes
-exportObj.classes = (...args) => {
+export const classes = (...args) => {
   let result = [];
   args.forEach(arg => {
     if (arg) {
@@ -291,7 +290,7 @@ exportObj.classes = (...args) => {
 }
 
 //global counter
-exportObj.getNextKey = (() => {
+export const getNextKey = (() => {
   let key = 0;
   return (offset = 0, asString = true) => {
     const val = offset + key++;
@@ -302,7 +301,7 @@ exportObj.getNextKey = (() => {
 
 
 
-exportObj.eventVal = (fn) => (e) => fn(e.target.value);
+export const eventVal = (fn) => (e) => fn(e.target.value);
 
 
 const xOr = (cond1, cond2) => (cond1 || cond2) && !(cond1 && cond2);
@@ -326,7 +325,7 @@ const keyValSame = (obj1, obj2, key) => {
 }
 
 //assumes both objects have same top level keys
-exportObj.diffTopLevelKeyVals = (obj1, obj2) => {
+export const diffTopLevelKeyVals = (obj1, obj2) => {
   const result = {};
   keys(obj1).forEach(key => {
     result[key] = !keyValSame(obj1, obj2, key);
@@ -335,4 +334,3 @@ exportObj.diffTopLevelKeyVals = (obj1, obj2) => {
   return result;
 }
 
-module.exports = exportObj;
