@@ -41,12 +41,7 @@ const arrFunc = (funcName) => (arr, ...paramsToPass) => {
   return arr[funcName](...paramsToPass);
 }
 
-const [map, forEach, filter, reduce, every] = ['map', 'forEach', 'filter', 'reduce', 'every'].map(arrFunc);
-export const map = map;
-export const forEach = forEach;
-export const filter = filter;
-export const reduce = reduce;
-export const every = every;
+export const [map, forEach, filter, reduce, every] = ['map', 'forEach', 'filter', 'reduce', 'every'].map(arrFunc);
 
 export const not = (fn) => (...args) => !fn(...args);
 
