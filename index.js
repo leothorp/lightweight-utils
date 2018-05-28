@@ -201,7 +201,7 @@ export const updateArr = (arr, ...rest) => {
 export const updateArrInPlace = (arr, findFuncOrIdx, updateFunc) => {
   const idx = typeof findFuncOrIdx === "number" 
     ? findFuncOrIdx 
-    : arr.findIndex(findFunc);
+    : arr.findIndex(findFuncOrIdx);
     
   const updatedEl = updateFunc(arr[idx]);
   arr.splice(idx, 1, updatedEl);
