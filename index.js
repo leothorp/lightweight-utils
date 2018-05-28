@@ -193,7 +193,7 @@ export const keyBy = (arr, keySelector, valSelector = identity, collisions = fal
 //TODO: vvv resolve return type discrepancy between the two
 export const updateArr = (arr, ...rest) => {
   const copy = arr.slice();
-  return updateArrInPlace(copy, ...rest);
+  updateArrInPlace(copy, ...rest);
   return copy;
 } 
 
