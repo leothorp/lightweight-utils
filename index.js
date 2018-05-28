@@ -189,10 +189,6 @@ export const keyBy = (arr, keySelector, valSelector = identity, collisions = fal
   return resultObj;
 }
 
-export const getRandomBool = () => {
-  return getRandomInt(2) === 1;
-}
-
 //returns updated copy of the array
 //TODO: vvv resolve return type discrepancy between the two
 export const updateArr = (arr, ...rest) => {
