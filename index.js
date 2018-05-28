@@ -189,6 +189,29 @@ export const keyBy = (arr, keySelector, valSelector = identity, collisions = fal
   return resultObj;
 }
 
+export const getRandomBool = () => {
+  return getRandomInt(2) === 1;
+}
+
+//returns updated copy of the array
+//TODO: vvv resolve return type discrepancy between the two
+export const updateArr = (arr, ...rest) => {
+  const copy = arr.slice();
+  return updateArrInPlace(copy, ...rest);
+  return copy;
+} 
+
+//returns the updated element
+export const updateArrInPlace = (arr, findFuncOrIdx, updateFunc) => {
+  const idx = typeof findFuncOrIdx === "number" 
+    ? findFuncOrIdx 
+    : arr.findIndex(findFunc);
+    
+  const updatedEl = updateFunc(arr[idx]);
+  arr.splice(idx, 1, updatedEl);
+  return updatedEl;
+}
+
 export const isUndefined = val => val === undefined;
 
 export const isEmptyObj = obj => Object.keys(obj).length === 0; 
