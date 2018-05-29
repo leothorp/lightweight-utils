@@ -180,7 +180,7 @@ export const toObj = (arr, keySelector = identity, valSelector = identity, colli
         acc[key] = acc[key].slice().concat(curr);
       }
     } else {
-      acc[key] = valSelector(curr); 
+      acc[key] = valSelector(curr, i, arr); 
     }
 
     return acc;
