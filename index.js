@@ -170,7 +170,7 @@ export const makeArr = (count, fn) => {
   return result;
 }
 
-export const keyBy = (arr, keySelector, valSelector = identity, collisions = false) => {
+export const toObj = (arr, keySelector = identity, valSelector = identity, collisions = false) => {
   const resultObj = arr.reduce((acc, curr, i, arr) => {
     const key = keySelector(curr, i, arr);
     if (collisions) {
@@ -237,7 +237,7 @@ export const updateObj = (startObj, path, getNewVal) => {
   return recurse(startObj, path.split('.'));
 };
 
-export const stringsToObj = (...strings) => keyBy(strings, identity);
+export const stringsToObj = (...strings) => toObj(strings, identity);
 
 export const deepRemoveKey = (startObj, pathToKey) => {
   const pathParts = pathToKey.split('.');
